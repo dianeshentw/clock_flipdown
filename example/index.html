@@ -15,6 +15,28 @@
     <div class="example">
       <h1>FlipDown.js 翻頁倒數計時器</h1>
       <p>⏰ 輕量且高效的翻頁風格倒數計時器</p>
+      <form id="countdown-form" class="controls">
+        <div class="field">
+          <label for="title">倒數標題</label>
+          <input id="title" name="title" type="text" value="倒數計時" placeholder="輸入倒數標題">
+        </div>
+        <div class="time-inputs">
+          <div class="field">
+            <label for="hours">小時</label>
+            <input id="hours" name="hours" type="number" min="0" value="0">
+          </div>
+          <div class="field">
+            <label for="minutes">分鐘</label>
+            <input id="minutes" name="minutes" type="number" min="0" max="59" value="1">
+          </div>
+          <div class="field">
+            <label for="seconds">秒</label>
+            <input id="seconds" name="seconds" type="number" min="0" max="59" value="0">
+          </div>
+        </div>
+        <button id="start" type="submit" class="button primary">Start</button>
+      </form>
+      <h2 id="timer-title" class="timer-title">倒數計時</h2>
       <div id="flipdown" class="flipdown"></div>
       <div class="buttons">
         <p>版本：<span id="ver"></span>（壓縮後小於 11KB）</p>

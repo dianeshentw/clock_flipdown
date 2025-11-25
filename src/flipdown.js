@@ -52,9 +52,6 @@ class FlipDown {
     // Interval
     this.countdown = null;
 
-    // Number of days remaining
-    this.daysRemaining = 0;
-
     // Clock values as numbers
     this.clockValues = {};
 
@@ -151,13 +148,13 @@ class FlipDown {
    * @author PButcher
    **/
   _parseOptions(opt) {
-    let headings = ["Days", "Hours", "Minutes", "Seconds"];
-    if (opt.headings && opt.headings.length === 4) {
+    let headings = ["Hours", "Minutes", "Seconds"];
+    if (opt.headings && opt.headings.length === 3) {
       headings = opt.headings;
     }
     return {
       // Theme
-      theme: opt.hasOwnProperty("theme") ? opt.theme : "dark",
+      theme: "dark",
       headings,
     };
   }
@@ -180,37 +177,20 @@ class FlipDown {
   _init() {
     this.initialised = true;
 
-    // Check whether countdown has ended and calculate how many digits the day counter needs
-    if (this._hasCountdownEnded()) {
-      this.daysremaining = 0;
-    } else {
-      this.daysremaining = Math.floor(
-        (this.epoch - this.now) / 86400
-      ).toString().length;
-    }
-    var dayRotorCount = this.daysremaining <= 2 ? 2 : this.daysremaining;
-
-    // Create and store rotors
-    for (var i = 0; i < dayRotorCount + 6; i++) {
+    // Create and store rotors (hours, minutes, seconds)
+    for (var i = 0; i < 6; i++) {
       this.rotors.push(this._createRotor(0));
     }
 
-    // Create day rotor group
-    var dayRotors = [];
-    for (var i = 0; i < dayRotorCount; i++) {
-      dayRotors.push(this.rotors[i]);
-    }
-    this.element.appendChild(this._createRotorGroup(dayRotors, 0));
-
-    // Create other rotor groups
-    var count = dayRotorCount;
+    // Create rotor groups
+    var count = 0;
     for (var i = 0; i < 3; i++) {
-      var otherRotors = [];
+      var rotors = [];
       for (var j = 0; j < 2; j++) {
-        otherRotors.push(this.rotors[count]);
+        rotors.push(this.rotors[count]);
         count++;
       }
-      this.element.appendChild(this._createRotorGroup(otherRotors, i + 1));
+      this.element.appendChild(this._createRotorGroup(rotors, i));
     }
 
     // Store and convert rotor nodelists to arrays
@@ -293,10 +273,6 @@ class FlipDown {
     // Between now and epoch
     var diff = this.epoch - this.now <= 0 ? 0 : this.epoch - this.now;
 
-    // Days remaining
-    this.clockValues.d = Math.floor(diff / 86400);
-    diff -= this.clockValues.d * 86400;
-
     // Hours remaining
     this.clockValues.h = Math.floor(diff / 3600);
     diff -= this.clockValues.h * 3600;
@@ -322,15 +298,16 @@ class FlipDown {
    * @param {boolean} init - True if calling for initialisation
    **/
   _updateClockValues(init = false) {
+    if (this.prevClockValuesAsString.length === 0) {
+      this.prevClockValuesAsString = ["0", "0", "0", "0", "0", "0"];
+    }
     // Build clock value strings
-    this.clockStrings.d = pad(this.clockValues.d, 2);
     this.clockStrings.h = pad(this.clockValues.h, 2);
     this.clockStrings.m = pad(this.clockValues.m, 2);
     this.clockStrings.s = pad(this.clockValues.s, 2);
 
     // Concat clock value strings
     this.clockValuesAsString = (
-      this.clockStrings.d +
       this.clockStrings.h +
       this.clockStrings.m +
       this.clockStrings.s
