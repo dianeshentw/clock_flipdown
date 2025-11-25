@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Do something when the countdown ends
     .ifEnded(() => {
-      console.log('The countdown has ended!');
+      console.log('倒數計時結束囉！');
     });
 
   // Toggle theme
