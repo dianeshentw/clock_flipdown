@@ -8,7 +8,7 @@
 }
 /* Rotor group headings */
 .flipdown.flipdown__theme-dark .rotor-group-heading:before {
-  color: #000000;
+  color: #ffffff;
 }
 /* Delimeters */
 .flipdown.flipdown__theme-dark .rotor-group:nth-child(n+2):nth-child(-n+3):before,
@@ -70,14 +70,14 @@
 
 .flipdown {
   overflow: visible;
-  width: 510px;
+  width: 360px;
   height: 110px;
 }
 
 .flipdown .rotor-group {
   position: relative;
   float: left;
-  padding-right: 30px;
+  padding-right: 20px;
 }
 
 .flipdown .rotor-group:last-child {
@@ -111,7 +111,7 @@
   content: '';
   position: absolute;
   bottom: 20px;
-  left: 115px;
+  left: 85px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -121,7 +121,7 @@
   content: '';
   position: absolute;
   bottom: 50px;
-  left: 115px;
+  left: 85px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -248,7 +248,7 @@
 
   .flipdown .rotor-group:nth-child(n+2):nth-child(-n+3):before,
   .flipdown .rotor-group:nth-child(n+2):nth-child(-n+3):after {
-    left: 69px;
+    left: 53px;
   }
 
   .flipdown .rotor-group:nth-child(n+2):nth-child(-n+3):before {

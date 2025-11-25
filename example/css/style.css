@@ -8,44 +8,31 @@ body {
   display: flex;
   align-items: center;
   align-content: space-around;
+  justify-content: center;
+  background-color: #0f0f0f;
+  color: #f2f2f2;
 }
 
 body,
 .example h1,
 .example p,
-.example .button {
+.example .button,
+.example label,
+.example input,
+.timer-title {
   transition: all .2s ease-in-out;
-}
-
-body.light-theme {
-  background-color: #151515;
-}
-
-body.light-theme .example h1 {
-  color: #FFFFFF;
-}
-
-body.light-theme .example p {
-  color: #FFFFFF;
-}
-
-body.light-theme .buttons .button {
-  color: #FFFFFF;
-  border-color: #FFFFFF;
-}
-
-body.light-theme .buttons .button:hover {
-  color: #151515;
-  background-color: #FFFFFF;
 }
 
 .example {
   font-family: 'Roboto', sans-serif;
-  width: 550px;
-  height: 378px;
+  width: 650px;
+  min-height: 450px;
   margin: auto;
   padding: 20px;
   box-sizing: border-box;
+  background-color: #111217;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
 }
 
 .example .flipdown {
@@ -58,22 +45,74 @@ body.light-theme .buttons .button:hover {
   font-size: 3em;
   margin-top: 0;
   margin-bottom: 10px;
+  color: #ffffff;
 }
 
 .example p {
   text-align: center;
   font-weight: 100;
   margin-top: 0;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
+  color: #d4d4d4;
+}
+
+.controls {
+  background: #181a24;
+  border: 1px solid #20222f;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.controls .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.controls label {
+  font-weight: 400;
+  color: #e8e8e8;
+}
+
+.controls input {
+  background: #0f111a;
+  border: 1px solid #2c3142;
+  border-radius: 6px;
+  padding: 10px;
+  color: #f2f2f2;
+}
+
+.controls input:focus {
+  outline: none;
+  border-color: #4fc3f7;
+  box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.25);
+}
+
+.controls .time-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.timer-title {
+  text-align: center;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 10px 0 15px;
 }
 
 .example .buttons {
   width: 100%;
   height: 50px;
-  margin: 50px auto 0px auto;
+  margin: 30px auto 0px auto;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  color: #cfd8dc;
 }
 
 .example .buttons p {
@@ -81,7 +120,7 @@ body.light-theme .buttons .button:hover {
   line-height: 50px;
   font-weight: 400;
   padding: 0px 25px 0px 0px;
-  color: #333;
+  color: #cfd8dc;
   margin: 0px;
 }
 
@@ -91,36 +130,43 @@ body.light-theme .buttons .button:hover {
   box-sizing: border-box;
   line-height: 46px;
   text-decoration: none;
-  color: #333;
+  color: #cfd8dc;
   padding: 0px 20px;
-  border: solid 2px #333;
-  border-radius: 4px;
+  border: solid 2px #4fc3f7;
+  border-radius: 6px;
   text-transform: uppercase;
   font-weight: 700;
-  transition: all .2s ease-in-out;
+  background: transparent;
+  cursor: pointer;
+}
+
+.example .button.primary {
+  background: #4fc3f7;
+  color: #0b0c10;
+  border-color: #4fc3f7;
 }
 
 .example .button:hover {
-  background-color: #333;
-  color: #FFF;
+  background-color: #69d0fb;
+  color: #0b0c10;
 }
 
 .example .button i {
   margin-right: 5px;
 }
 
-@media(max-width: 550px) {
+@media(max-width: 750px) {
   .example {
     width: 100%;
-    height: 362px;
+    height: auto;
   }
 
   .example h1 {
     font-size: 2.5em;
   }
 
-  .example p {
-    margin-bottom: 25px;
+  .controls .time-inputs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .example .buttons {

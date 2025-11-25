@@ -1,28 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('countdown-form');
+  const titleInput = document.getElementById('title');
+  const hoursInput = document.getElementById('hours');
+  const minutesInput = document.getElementById('minutes');
+  const secondsInput = document.getElementById('seconds');
+  const timerTitle = document.getElementById('timer-title');
+  const flipdownContainer = document.getElementById('flipdown');
+  const versionLabel = document.getElementById('ver');
 
-  // Unix timestamp (in seconds) to count down to
-  var twoDaysFromNow = (new Date().getTime() / 1000) + (86400 * 2) + 1;
+  let flipdown = null;
 
-  // Set up FlipDown
-  var flipdown = new FlipDown(twoDaysFromNow)
+  const startCountdown = () => {
+    const hours = parseInt(hoursInput.value, 10) || 0;
+    const minutes = parseInt(minutesInput.value, 10) || 0;
+    const seconds = parseInt(secondsInput.value, 10) || 0;
+    const countdownTitle = titleInput.value.trim() || '倒數計時';
 
-    // Start the countdown
-    .start()
+    const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
+    if (totalSeconds <= 0) {
+      alert('請設定大於 0 的倒數秒數');
+      return;
+    }
 
-    // Do something when the countdown ends
-    .ifEnded(() => {
-      console.log('倒數計時結束囉！');
-    });
+    const targetEpoch = Math.floor((new Date().getTime() / 1000) + totalSeconds);
 
-  // Toggle theme
-  var interval = setInterval(() => {
-    let body = document.body;
-    body.classList.toggle('light-theme');
-    body.querySelector('#flipdown').classList.toggle('flipdown__theme-dark');
-    body.querySelector('#flipdown').classList.toggle('flipdown__theme-light');
-  }, 5000);
+    flipdownContainer.innerHTML = '';
 
-  // Show version number
-  var ver = document.getElementById('ver');
-  ver.innerHTML = flipdown.version;
+    flipdown = new FlipDown(targetEpoch, 'flipdown', {
+      headings: ['Hours', 'Minutes', 'Seconds'],
+    })
+      .start()
+      .ifEnded(() => {
+        console.log('倒數計時結束囉！');
+      });
+
+    timerTitle.textContent = countdownTitle;
+    versionLabel.innerHTML = flipdown.version;
+  };
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    startCountdown();
+  });
+
+  startCountdown();
 });
